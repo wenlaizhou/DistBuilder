@@ -29,7 +29,7 @@ import (
 //
 //	// Construct a synchronous writer (the default mode).
 //	w := &kafka.Writer{
-//		Addr:         kafka.TCP("localhost:9092"),
+//		Addr:         Addr: kafka.TCP("localhost:9092", "localhost:9093", "localhost:9094"),
 //		Topic:        "topic-A",
 //		RequiredAcks: kafka.RequireAll,
 //	}
@@ -55,7 +55,7 @@ import (
 // writer to receive notifications of messages being written to kafka:
 //
 //	w := &kafka.Writer{
-//		Addr:         kafka.TCP("localhost:9092"),
+//		Addr:         Addr: kafka.TCP("localhost:9092", "localhost:9093", "localhost:9094"),
 //		Topic:        "topic-A",
 //		RequiredAcks: kafka.RequireAll,
 //		Async:        true, // make the writer asynchronous
@@ -185,7 +185,7 @@ type Writer struct {
 	// If nil, DefaultTransport is used.
 	Transport RoundTripper
 
-	// AllowAutoTopicCreation notifies writer to create topic is missing.
+	// AllowAutoTopicCreation notifies writer to create topic if missing.
 	AllowAutoTopicCreation bool
 
 	// Manages the current set of partition-topic writers.

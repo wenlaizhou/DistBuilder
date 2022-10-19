@@ -1,6 +1,7 @@
 package protocol
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -365,14 +366,15 @@ func parseVersion(s string) (int16, error) {
 }
 
 func dontExpectEOF(err error) error {
-	switch err {
-	case nil:
-		return nil
-	case io.EOF:
-		return io.ErrUnexpectedEOF
-	default:
+	if err != nil {
+		if errors.Is(err, io.EOF) {
+			return io.ErrUnexpectedEOF
+		}
+
 		return err
 	}
+
+	return nil
 }
 
 type Broker struct {
@@ -490,7 +492,7 @@ type Merger interface {
 	Merge(messages []Message, results []interface{}) (Message, error)
 }
 
-// Result converts r to a Message or and error, or panics if r could be be
+// Result converts r to a Message or an error, or panics if r could not be
 // converted to these types.
 func Result(r interface{}) (Message, error) {
 	switch v := r.(type) {

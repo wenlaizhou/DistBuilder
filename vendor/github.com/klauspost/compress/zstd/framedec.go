@@ -253,10 +253,11 @@ func (d *frameDec) reset(br byteBuffer) error {
 		return ErrWindowSizeTooSmall
 	}
 	d.history.windowSize = int(d.WindowSize)
-	if d.o.lowMem && d.history.windowSize < maxBlockSize {
+	if !d.o.lowMem || d.history.windowSize < maxBlockSize {
+		// Alloc 2x window size if not low-mem, or very small window size.
 		d.history.allocFrameBuffer = d.history.windowSize * 2
-		// TODO: Maybe use FrameContent size
 	} else {
+		// Alloc with one additional block
 		d.history.allocFrameBuffer = d.history.windowSize + maxBlockSize
 	}
 
@@ -310,7 +311,7 @@ func (d *frameDec) checkCRC() error {
 	tmp[2] = byte(got >> 16)
 	tmp[3] = byte(got >> 24)
 
-	if !bytes.Equal(tmp[:], want) && !ignoreCRC {
+	if !bytes.Equal(tmp[:], want) {
 		if debugDecoder {
 			println("CRC Check Failed:", tmp[:], "!=", want)
 		}
