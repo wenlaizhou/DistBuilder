@@ -24,25 +24,28 @@ func main() {
 	middleware.RegisterDefaultIndex(middleware.DefaultIndexStruct{
 		Title:         "DistBuilder",
 		BackgroundUrl: "/backg",
-		HeaderLinks: []string{
-			"a,a", "b,b",
+		HeaderLinks: []middleware.DefaultIndexLink{
+			{
+				Text: "",
+				Link: "",
+			},
 		},
 		CenterContentLines: []string{"<h2>hello world</h2>", "123"},
-		Buttons: []middleware.DefaultIndexButton{
+		Buttons: []middleware.DefaultIndexLink{
 			{
-				Text: "进入系统",
-				Link: "/",
+				Text: "Enter",
+				Link: "",
 			}, {
-				Text: "文档",
-				Link: "/",
-			}, {
-				Text: "code",
-				Link: "/",
+				Text: "Doc",
+				Link: "",
 			},
 		},
 		PoweredBy: "middleware",
-		FooterLinks: []string{
-			"a,a", "b,b",
+		FooterLinks: []middleware.DefaultIndexLink{
+			{
+				Text: "",
+				Link: "",
+			},
 		},
 		ExtendedStyle: "",
 		EnableSwagger: false,
