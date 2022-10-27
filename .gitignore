@@ -67,3 +67,5 @@ eclipse-build
 
 log/
 test/
+
+dist/

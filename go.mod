@@ -2,11 +2,12 @@ module builder
 
 go 1.17
 
-require github.com/wenlaizhou/middleware v0.0.0-20221020023523-ba220a76d725
+require github.com/wenlaizhou/middleware v0.0.0-20221025121515-a9d149e06217
 
 require (
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
+	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/klauspost/compress v1.15.7 // indirect
 	github.com/lufia/plan9stats v0.0.0-20220913051719-115f729f3c8c // indirect
 	github.com/pierrec/lz4/v4 v4.1.17 // indirect
